@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const doctorAuthRoute = require("./routes/doctorAuth");
 
 dotenv.config();
 mongoose.set('strictQuery', false);
@@ -17,12 +18,10 @@ mongoose
     })
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("common"));
-
-app.get("/", (req, res) => {
-    res.send("Welcome to Docsify");
-})
+app.use("/api/auth/doctor", doctorAuthRoute);
 
 app.listen(8800, () => {
     console.log("Listening to port 8800");
