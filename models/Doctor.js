@@ -9,8 +9,8 @@ const DoctorSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            max: String,
-            unique: true
+            unique: true,
+            max: 50
         },
         password: {
             type: String,
