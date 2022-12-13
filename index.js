@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const doctorAuthRoute = require("./routes/doctorAuth");
+const patientAuthRoute = require("./routes/patientAuth");
 
 dotenv.config();
 mongoose.set('strictQuery', false);
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("common"));
 app.use("/api/auth/doctor", doctorAuthRoute);
+app.use("/api/auth/patient", patientAuthRoute);
 
 app.listen(8800, () => {
     console.log("Listening to port 8800");
