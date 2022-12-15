@@ -41,4 +41,33 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.put("/:id", async (req, res) => {
+    if (req.body.userId == req.params.id || req.body.isAdmin) {
+        if (req.body.password) {
+            try {
+                const salt = await bcrypt.genSalt(10);
+                req.body.password = bcrypt.hash(salt, req.body.password);
+            }
+            catch (e) {
+                return res.status(500).json(e);
+            }
+        }
+        try {
+            const patient = await Patient.findByIdAndUpdate(req.params.id, { $set: req.body })
+            res.status(200).json("Account updated");
+        }
+        catch (e) {
+            res.status(500).send(e);
+        }
+    }
+    else {
+        return res.status(401).send("You are not authorized to update");
+    }
+})
+
 module.exports = router
+
+
+// Login patient
+// Register patient
+// Update patient
