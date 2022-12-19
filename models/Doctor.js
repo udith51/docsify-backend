@@ -51,6 +51,10 @@ const DoctorSchema = new mongoose.Schema(
         followers: {
             type: Array,
             default: []
+        },
+        blogs: {
+            type: Array,
+            default: []
         }
     },
     { timestamps: true }
